@@ -74,4 +74,23 @@ export const projects: Project[] = [
     github: "https://github.com/akshvaishnav21/folder-organizer",
     screenshot: "folder-organizer.png",
   },
+  {
+    slug: "pomodoro-timer",
+    name: "Pomodoro Timer",
+    tagline: "Focus timer with tasks and stats — no distractions",
+    description:
+      "A clean, keyboard-driven Pomodoro app with Work / Short Break / Long Break modes, a task list, and session statistics. State persists across reloads via Zustand.",
+    tech: ["React", "TypeScript", "Vite", "Zustand", "Tailwind CSS"],
+    github: "https://github.com/akshvaishnav21/pomodoro-timer",
+    screenshot: "pomodoro-timer.png",
+  },
+  {
+    slug: "save-your-tokens",
+    name: "SaveYourTokens",
+    tagline: "CLI proxy that compresses Claude Code output 30–60%",
+    description:
+      "A transparent Go CLI proxy for Claude Code that intercepts bash commands via PreToolUse hooks, strips noise (passing tests, progress bars, compile lines), and logs cumulative token savings to SQLite.",
+    tech: ["Go", "SQLite", "Claude Code Hooks"],
+    github: "https://github.com/akshvaishnav21/save-your-tokens",
+  },
 ];
