@@ -92,5 +92,6 @@ export const projects: Project[] = [
       "A transparent Go CLI proxy for Claude Code that intercepts bash commands via PreToolUse hooks, strips noise (passing tests, progress bars, compile lines), and logs cumulative token savings to SQLite.",
     tech: ["Go", "SQLite", "Claude Code Hooks"],
     github: "https://github.com/akshvaishnav21/save-your-tokens",
+    screenshot: "saveyourtokens.png",
   },
 ];
