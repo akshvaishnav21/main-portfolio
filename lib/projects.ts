@@ -7,10 +7,34 @@ export type Project = {
   github: string;
   demo?: string;
   screenshot?: string; // filename in /public/screenshots/
+  videoId?: string; // YouTube video ID for embed
   featured?: boolean;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "creator-support-agent",
+    name: "Creator Support Agent",
+    tagline: "AI toolkit for YouTube creators",
+    description:
+      "Analyses sponsorship fit from transcripts, clusters audience comments into insights, and generates 15 title/hook variations grouped by psychological principle. Includes a Chrome extension for one-click import.",
+    tech: ["Next.js", "TypeScript", "Gemini AI", "Chrome Extensions API"],
+    github: "https://github.com/akshvaishnav21/creator-support-agent",
+    demo: "https://creator-support-agent-peach.vercel.app/",
+    videoId: "TClHAZOg3jA",
+    featured: true,
+  },
+  {
+    slug: "learntube",
+    name: "LearnTube",
+    tagline: "Privacy-first Android YouTube client with learning tools",
+    description:
+      "Fork of NewPipe extended with a Learning Paths dashboard, per-video watch progress, timestamped notes, daily streaks, and weekly study-time stats. No account, no tracking.",
+    tech: ["Java", "Kotlin", "Android"],
+    github: "https://github.com/akshvaishnav21/LearnTube",
+    videoId: "Sa12WOK0cO0",
+    featured: true,
+  },
   {
     slug: "resumeforge",
     name: "ResumeForge",

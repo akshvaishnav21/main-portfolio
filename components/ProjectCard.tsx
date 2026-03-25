@@ -42,9 +42,17 @@ export default function ProjectCard({ project, stars, index }: Props) {
         className="absolute inset-0 z-0"
         aria-label={`Open ${project.name}`}
       />
-      {/* Screenshot or gradient placeholder */}
+      {/* Video embed, screenshot, or gradient placeholder */}
       <div className="relative h-48 overflow-hidden">
-        {project.screenshot ? (
+        {project.videoId ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${project.videoId}`}
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title={project.name}
+          />
+        ) : project.screenshot ? (
           <Image
             src={`/screenshots/${project.screenshot}`}
             alt={project.name}
