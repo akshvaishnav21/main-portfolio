@@ -13,6 +13,18 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "tripsync",
+    name: "TripSync",
+    tagline: "AI-powered group trip planner",
+    description:
+      "Collects everyone's preferences via a shareable link, generates 3 optimized itinerary proposals with Gemini AI, and lets the group vote on individual activities. No signup required — works like Google Docs.",
+    tech: ["Next.js", "TypeScript", "Supabase", "Gemini AI", "Tailwind CSS"],
+    github: "https://github.com/akshvaishnav21/tripsync",
+    demo: "https://tripsync-bice.vercel.app/",
+    videoId: "RtIzNqHzmB4",
+    featured: true,
+  },
+  {
     slug: "creator-support-agent",
     name: "Creator Support Agent",
     tagline: "AI toolkit for YouTube creators",
