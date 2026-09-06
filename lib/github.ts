@@ -1,33 +1,18 @@
-const GITHUB_USERNAME = "akshvaishnav21";
-
-export async function getStarCount(repo: string): Promise<number> {
-  try {
-    const headers: HeadersInit = {
-      Accept: "application/vnd.github+json",
-    };
-    if (process.env.GITHUB_TOKEN) {
-      headers["Authorization"] = `Bearer ${process.env.GITHUB_TOKEN}`;
-    }
-    const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_USERNAME}/${repo}`,
-      {
-        headers,
-        next: { revalidate: 3600 },
-      }
-    );
-    if (!res.ok) return 0;
-    const data = await res.json();
-    return data.stargazers_count ?? 0;
-  } catch {
-    return 0;
-  }
-}
+import "server-only";
+import { fetchStarCount } from "./github-client";
 
 export async function getAllStarCounts(
-  repos: string[]
-): Promise<Record<string, number>> {
-  const counts = await Promise.all(
-    repos.map(async (repo) => [repo, await getStarCount(repo)] as const)
+  repos: string[],
+): Promise<Record<string, number | null>> {
+  if (process.env.GITHUB_STARS_DISABLED === "1") return {};
+  const entries = await Promise.all(
+    [...new Set(repos)].map(
+      async (repo) =>
+        [
+          repo,
+          await fetchStarCount(repo, { token: process.env.GITHUB_TOKEN }),
+        ] as const,
+    ),
   );
-  return Object.fromEntries(counts);
+  return Object.fromEntries(entries);
 }

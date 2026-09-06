@@ -1,82 +1,133 @@
 "use client";
 
-import { Github, Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Github, Menu, X, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+
+const links = [
+  { label: "Work", href: "/#projects" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
+];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const links = [
-    { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
-  ];
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        buttonRef.current?.focus();
+      }
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (
+        event.target instanceof Node &&
+        !headerRef.current?.contains(event.target)
+      )
+        setMenuOpen(false);
+    };
+    const media = window.matchMedia("(min-width: 768px)");
+    const onResize = () => {
+      if (media.matches) setMenuOpen(false);
+    };
+    if (menuOpen) {
+      document.addEventListener("keydown", onKeyDown);
+      document.addEventListener("pointerdown", onPointerDown);
+      media.addEventListener("change", onResize);
+    }
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+      media.removeEventListener("change", onResize);
+    };
+  }, [menuOpen]);
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-slate-950/90 backdrop-blur-md border-b border-slate-800" : "bg-transparent"
-      }`}
-    >
-      <nav className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="text-white font-semibold text-lg tracking-tight">
-          AV
-        </a>
-
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-slate-400 hover:text-white text-sm transition-colors"
+    <header className="site-header" ref={headerRef}>
+      <nav className="section-shell nav-inner" aria-label="Main navigation">
+        <Link
+          href="/"
+          className="wordmark"
+          aria-label="Aakash Vaishnav — home"
+          onClick={() => setMenuOpen(false)}
+        >
+          av<span>.</span>
+        </Link>
+        <div className="desktop-nav">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="nav-link"
+              aria-current={
+                pathname.startsWith("/projects/") && link.label === "Work"
+                  ? "location"
+                  : undefined
+              }
             >
-              {l.label}
-            </a>
+              {link.label}
+            </Link>
           ))}
           <a
             href="https://github.com/akshvaishnav21"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-white transition-colors"
-            aria-label="GitHub profile"
+            className="text-link"
           >
-            <Github size={20} />
+            GitHub <ArrowUpRight size={15} />
           </a>
         </div>
-
-        {/* Mobile menu button */}
         <button
-          className="md:hidden text-slate-400 hover:text-white"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          ref={buttonRef}
+          className="menu-toggle"
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
         >
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </nav>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-6 pb-4">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setMenuOpen(false)}
-              className="block py-2 text-slate-400 hover:text-white text-sm transition-colors"
-            >
-              {l.label}
-            </a>
+      <div
+        className="mobile-nav section-shell"
+        id="mobile-navigation"
+        hidden={!menuOpen}
+      >
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={() => setMenuOpen(false)}
+          >
+            {link.label}
+          </Link>
+        ))}
+        <a
+          href="https://github.com/akshvaishnav21"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Github size={16} /> GitHub
+        </a>
+      </div>
+      <noscript>
+        <style>{".menu-toggle{display:none!important}"}</style>
+        <nav
+          className="noscript-nav section-shell"
+          aria-label="Section navigation"
+        >
+          {links.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.label}
+            </Link>
           ))}
-        </div>
-      )}
+        </nav>
+      </noscript>
     </header>
   );
 }

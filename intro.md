@@ -10,9 +10,9 @@ I ship side projects to scratch my own itches — AI tools, browser extensions, 
 
 | Project | What it does | Stack |
 |---------|-------------|-------|
-| [ResumeForge](https://github.com/akshvaishnav21/ResumeForge) | AI-powered resume tailoring in under 2 min | React, FastAPI, Gemini AI, Docker |
+| [ResumeForge](https://github.com/akshvaishnav21/ResumeForge) | AI-assisted resume tailoring to a job description | React, FastAPI, Gemini AI, Docker |
 | [StockInsight AI](https://github.com/akshvaishnav21/StockInsight-AI) | Real-time stock analysis with AI insights | React, TypeScript, Express, shadcn/ui |
-| [SaveYourTokens](https://github.com/akshvaishnav21/save-your-tokens) | CLI proxy that compresses Claude Code output 30–60% | Go, SQLite, Claude Code Hooks |
+| [SaveYourTokens](https://github.com/akshvaishnav21/save-your-tokens) | CLI proxy that filters noisy command output | Go, SQLite, Claude Code Hooks |
 | [LearnTube](https://github.com/akshvaishnav21/LearnTube) | Privacy-first Android YouTube client with learning tools | Java, Kotlin, Android |
 | [CallYourAI](https://github.com/akshvaishnav21/CallYourAI) | Access any AI from Chrome's address bar | JavaScript, Chrome Extensions API |
 | [Opportunity Cost Reminder](https://github.com/akshvaishnav21/opportunity-cost-reminder) | Shows investment value of every Amazon purchase | JavaScript, Chrome Extensions API |
@@ -37,4 +37,4 @@ I ship side projects to scratch my own itches — AI tools, browser extensions, 
 
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/aakashvaishnav1)
 [![Email](https://img.shields.io/badge/-Email-EA4335?style=flat&logo=gmail&logoColor=white)](mailto:aakashvaishnav@gmail.com)
-[![Portfolio](https://img.shields.io/badge/-Portfolio-000?style=flat&logo=vercel&logoColor=white)](https://github.com/akshvaishnav21)
+[![Portfolio](https://img.shields.io/badge/-Portfolio-000?style=flat&logo=vercel&logoColor=white)](https://main-portfolio-eight-tau.vercel.app)

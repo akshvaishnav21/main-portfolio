@@ -1,40 +1,58 @@
 import { projects } from "@/lib/projects";
 import { getAllStarCounts } from "@/lib/github";
+import { studies } from "@/lib/studies";
 import ProjectCard from "./ProjectCard";
 
 export default async function Projects() {
-  const slugs = projects.map((p) => {
-    const parts = p.github.split("/");
-    return parts[parts.length - 1];
-  });
-
-  const starCounts = await getAllStarCounts(slugs);
-
+  const starCounts = await getAllStarCounts(
+    projects.map((p) => p.github.split("/").pop()!),
+  );
+  const featured = studies.map((study) =>
+    projects.find((p) => p.slug === study.slug)!,
+  );
+  const more = projects.filter((p) => !featured.includes(p));
   return (
-    <section id="projects" className="py-24 bg-slate-950">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="mb-12">
-          <p className="text-blue-400 text-sm font-medium tracking-widest uppercase mb-3">
-            Projects
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Things I&apos;ve built
-          </h2>
+    <section
+      id="projects"
+      className="work-section section-shell"
+      aria-labelledby="work-heading"
+    >
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">Selected work</p>
+          <h2 id="work-heading">From friction to function.</h2>
         </div>
-
-        <div className="grid sm:grid-cols-2 gap-6">
-          {projects.map((project, i) => {
-            const repoName = project.github.split("/").pop() ?? "";
-            return (
-              <ProjectCard
-                key={project.slug}
-                project={project}
-                stars={starCounts[repoName] ?? 0}
-                index={i}
-              />
-            );
-          })}
+        <p>
+          Three projects. <br />
+          Three different problems to solve.
+        </p>
+      </div>
+      <div className="selected-projects">
+        {featured.map((project, index) => (
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            stars={starCounts[project.github.split("/").pop()!] ?? null}
+            index={index}
+            selected
+          />
+        ))}
+      </div>
+      <div className="section-heading more-heading">
+        <div>
+          <p className="eyebrow">The rest of the workshop</p>
+          <h2>More things I’ve built.</h2>
         </div>
+        <p>Small experiments. Useful side projects.</p>
+      </div>
+      <div className="more-projects">
+        {more.map((project) => (
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            stars={starCounts[project.github.split("/").pop()!] ?? null}
+          />
+        ))}
       </div>
     </section>
   );
